@@ -1,0 +1,30 @@
+name: build-nix-iso-docker-ondemand
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Target builder folder containing a default.nix file to build an ISO
+        required: true
+        default: macbook-pro-x86_64
+      
+jobs: 
+  build-target-image:
+    name: Build target image
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3.6.0
+    - uses: cachix/install-nix-action@v22
+      with:
+        nix_path: nixpkgs=channel:nixos-23.05
+    - name: Check nix.conf
+      run: cat /etc/nix/nix.conf
+    - name: Build NixOS Image
+      run: |
+        nix-build '<nixpkgs/nixos>'  \
+          -A config.system.build.isoImage \
+          -I nixos-config=./builders/${{ github.event.inputs.target }}/default.nix \
+          --option sandbox false
+    - uses: actions/upload-artifact@v3
+      with:
+        name: nixos.iso
+        path: ./result/iso/*.iso*
