@@ -5,6 +5,13 @@
     "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/raspberry-pi/4"
   ];
 
+  nixpkgs.overlays = [
+    (final: super: {
+      makeModulesClosure = x:
+      super.makeModulesClosure (x // { allowMissing = true; });
+    })
+  ];
+
   hardware = {
     raspberry-pi."4".apply-overlays-dtmerge.enable = true;
     deviceTree = {
