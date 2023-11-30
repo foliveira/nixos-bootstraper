@@ -45,7 +45,7 @@
       permitRootLogin = "yes";
   };
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 
   users.extraUsers.root.openssh.authorizedKeys.keys = [
      "${{ secrets.NIXOS_PUB_SSH_KEY }}"
