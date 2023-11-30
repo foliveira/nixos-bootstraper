@@ -45,9 +45,9 @@
       permitRootLogin = "yes";
   };
 
-  system.stateVersion = "23.11";
-
   users.extraUsers.root.openssh.authorizedKeys.keys = [
-     "${{ secrets.NIXOS_PUB_SSH_KEY }}"
+     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPxoNgMISxkqbIUYlUlUwzr0RRTy5qTZxrp+zEZFUwlz"
   ];
+
+  system.stateVersion = "23.11";
 }
