@@ -10,7 +10,7 @@ on:
 jobs: 
   build-target-image:
     name: Build target image
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v5.0.0
     - uses: cachix/install-nix-action@c134e4c9e34bac6cab09cf239815f9339aaaf84e # v31
